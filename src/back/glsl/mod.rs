@@ -2250,6 +2250,15 @@ impl<'a, W: Write> Writer<'a, W> {
                 writeln!(self.out, ");")?;
             }
             Statement::RayQuery { .. } => unreachable!(),
+            Statement::DebugPrintf {
+                ref format,
+                ref arguments,
+            } => {
+                write!(self.out, "{level}")?;
+                write!(self.out, "debugPrintfEXT(\"{format}\",")?;
+                self.write_slice(arguments, |this, _, arg| this.write_expr(*arg, ctx))?;
+                writeln!(self.out, ");")?
+            }
         }
 
         Ok(())
