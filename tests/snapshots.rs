@@ -786,6 +786,7 @@ fn convert_wgsl() {
             "debug-printf",
             Targets::WGSL | Targets::GLSL | Targets::SPIRV,
         ),
+        ("buffer-pointer", Targets::SPIRV),
     ];
 
     for &(name, targets) in inputs.iter() {

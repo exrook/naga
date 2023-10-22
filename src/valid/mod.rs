@@ -86,7 +86,7 @@ bitflags::bitflags! {
     #[cfg_attr(feature = "serialize", derive(serde::Serialize))]
     #[cfg_attr(feature = "deserialize", derive(serde::Deserialize))]
     #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-    pub struct Capabilities: u16 {
+    pub struct Capabilities: u32 {
         /// Support for [`AddressSpace:PushConstant`].
         const PUSH_CONSTANT = 0x1;
         /// Float values with width = 8.
@@ -119,6 +119,11 @@ bitflags::bitflags! {
         const CUBE_ARRAY_TEXTURES = 0x4000;
         /// Support for `debugPrintf`
         const DEBUG_PRINTF = 0x8000;
+        /// Support for pointers to device buffers.
+        /// Required for using the [`crate::AddressSpace::PhysicalStorage`] pointer address space.
+        /// Required by Vulkan extension `VK_KHR_buffer_device_address`:
+        /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_buffer_device_address.html>
+        const PHYSICAL_STORAGE_BUFFER_ADDRESSES = 0x10000;
     }
 }
 
